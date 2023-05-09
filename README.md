@@ -34,7 +34,7 @@ Pre-requisite: the Docker image must exist, see with `docker images`.
 
 **Build a native image**
 
-`mvn native:compile`
+`mvn native:compile -Pnative`
 
 **Run a native image**
 
