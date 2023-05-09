@@ -1,4 +1,5 @@
-The purpose of this project is to run a Spring Boot native Docker image including an in-file H2 database.
+The purpose of this project is to run a Spring Boot native Docker image including an in-memory H2 database with loading
+from file at startup.
 
 Pre-requisite: Docker and GraalVM.
 
@@ -30,33 +31,23 @@ For faster `mvn` build commands run, add `-Dmaven.test.skip=true`.
 
 Pre-requisite: the Docker image must exist, see with `docker images`.
 
-`docker run -p 8080:8080 [image-name]:[tag] --rm -e "SPRING_PROFILES_ACTIVE=docker"`
+`docker run -p 8080:8080 [image-name]:[tag] --rm`
 
 **Build a native image**
 
-`mvn native:compile`
+`mvn native:compile -Pnative`
 
 **Run a native image**
 
 `./target/demodockernativeh2`
 
-**Build a native Docker image with spring-boot plugin**
+**Build a native Docker image with spring-boot plugin (no Dockerfile)**
 
 `mvn spring-boot:build-image -Pnative`
 
-**Build a native Docker image with the Dockerfile**
-
-Pre-requisite: the native image `demodockernativeh2` must exist in `/target`.
-
-`docker build -t [image name] .`
-
 # Status
 
-Everything works fine except the native Docker image: it doesn't find the H2 DB file.
-
-## Links
-
-[StackOverflow question about running a Docker container with an in-file H2 database](https://stackoverflow.com/questions/76164901/h2-db-file-in-docker-this-database-is-empty)
+Everything works fine.
 
 ## Tools
 
@@ -72,7 +63,8 @@ Export the content of the file system:
 
 # Test
 
-Run the app, the database is pre-filled, so a GET to http://localhost:8080/getIndex should return HTTP 200 with _0_ in the body.
+Run the app, the database is pre-filled, so a GET to http://localhost:8080/getIndex should return HTTP 200 with _0_ in
+the body.
 
 # Ref
 
